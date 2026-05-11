@@ -24,13 +24,18 @@ def test_logit_inplace():
     )
     bench.run()
 
-
-@pytest.mark.skip(reason="The `out` parameter is not supported: issue #2688")
+def logit_with_out(input, eps=1e-6, out=None):
+    result = torch.logit(input, eps=eps)
+    if out is not None:
+        out.copy_(result)
+        return out
+    return result
+#@pytest.mark.skip(reason="The `out` parameter is not supported: issue #2688")
 @pytest.mark.logit_out
 def test_logit_out():
     bench = base.UnaryPointwiseOutBenchmark(
         op_name="logit_out",
-        torch_op=lambda a: torch.logit(a, eps=1e-6),
+        torch_op=logit_with_out,
         dtypes=consts.FLOAT_DTYPES,
     )
     bench.run()

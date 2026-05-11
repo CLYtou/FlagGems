@@ -12,11 +12,15 @@ def test_square():
     bench.run()
 
 
+def square_inplace_wrapper(input):
+    return input.square_()
+
+
 @pytest.mark.square_
 def test_square_inplace():
     bench = base.UnaryPointwiseBenchmark(
         op_name="square_",
-        torch_op=torch.square_,
+        torch_op=square_inplace_wrapper,
         dtypes=consts.FLOAT_DTYPES,
         is_inplace=True,
     )
