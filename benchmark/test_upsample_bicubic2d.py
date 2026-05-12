@@ -12,7 +12,7 @@ class UpsampleBenchmark(base.GenericBenchmark):
         return []
 
 
-@pytest.mark.skip(reason="Benchmark fails: issue #2666")
+#@pytest.mark.skip(reason="Benchmark fails: issue #2666")
 @pytest.mark.upsample_bicubic2d
 @pytest.mark.parametrize("align_corners", [False, True])
 def test_upsample_bicubic2d(align_corners):
@@ -21,12 +21,7 @@ def test_upsample_bicubic2d(align_corners):
         scale_factors = [2.0, 2.0]
         output_size = None
 
-        yield {
-            "input": input,
-            "output_size": output_size,
-            "align_corners": align_corners,
-            "scale_factors": scale_factors,
-        }
+        yield input, output_size, align_corners, scale_factors
 
     bench = UpsampleBenchmark(
         input_fn=_input_fn,
