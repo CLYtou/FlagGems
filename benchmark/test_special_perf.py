@@ -2,7 +2,6 @@ import random
 
 import pytest
 import torch
-from _pytest.mark.structures import Mark, MarkDecorator
 
 from .attri_util import BOOL_DTYPES, FLOAT_DTYPES, INT_DTYPES, BenchLevel
 from .performance_utils import (
